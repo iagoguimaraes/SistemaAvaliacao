@@ -24,7 +24,6 @@ namespace SistemaAvaliacao
                 }
 
                 int x = 0;
-                //int y = 1;
             }
             catch (Exception ex)
             {
