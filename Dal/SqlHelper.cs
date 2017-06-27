@@ -107,7 +107,7 @@ namespace Dal
             }
         }
 
-        public void ExecuteNonQuery(string query)
+        public int ExecuteNonQuery(string query)
         {
             using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
             {
@@ -116,11 +116,11 @@ namespace Dal
                 {
                     sqlCommand.CommandTimeout = timeout;
                     sqlCommand.CommandType = CommandType.Text;
-                    sqlCommand.ExecuteNonQuery();
+                    return sqlCommand.ExecuteNonQuery();
                 }
             }
         }
-        public void ExecuteNonProcedure(string procedure)
+        public int ExecuteNonProcedure(string procedure)
         {
             using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
             {
@@ -129,11 +129,11 @@ namespace Dal
                 {
                     sqlCommand.CommandTimeout = timeout;
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.ExecuteNonQuery();
+                    return sqlCommand.ExecuteNonQuery();
                 }
             }
         }
-        public void ExecuteNonProcedure(string procedure, Dictionary<string, string> parameter)
+        public int ExecuteNonProcedure(string procedure, Dictionary<string, string> parameter)
         {
             using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
             {
@@ -148,12 +148,12 @@ namespace Dal
 
                     sqlCommand.CommandTimeout = timeout;
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.ExecuteNonQuery();
+                    return sqlCommand.ExecuteNonQuery();
                 }
             }
         }
 
-        public DataSet ExecuteQueryDataSet<T>(IFactory<T> entity, string query)
+        public DataSet ExecuteQueryDataSet(string query)
         {
             using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
             {
@@ -171,7 +171,7 @@ namespace Dal
                 }
             }
         }
-        public DataSet ExecuteProcedureDataSet<T>(IFactory<T> entity, string procedure)
+        public DataSet ExecuteProcedureDataSet(string procedure)
         {
             using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
             {
@@ -213,7 +213,7 @@ namespace Dal
             }
         }
 
-        public DataTable ExecuteQueryDataTable<T>(IFactory<T> entity, string query)
+        public DataTable ExecuteQueryDataTable(string query)
         {
             using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
             {
@@ -231,7 +231,7 @@ namespace Dal
                 }
             }
         }
-        public DataTable ExecuteProcedureDataTable<T>(IFactory<T> entity, string procedure)
+        public DataTable ExecuteProcedureDataTable(string procedure)
         {
             using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
             {
@@ -269,6 +269,53 @@ namespace Dal
                     sqlDataAdapter.Fill(dt);
                     return dt;
 
+                }
+            }
+        }
+
+        public object ExecuteQueryScalar(string query)
+        {
+            using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                using (MySqlCommand sqlCommand = new MySqlCommand(query, sqlConnection))
+                {
+                    sqlCommand.CommandTimeout = timeout;
+                    sqlCommand.CommandType = CommandType.Text;
+                    return sqlCommand.ExecuteScalar();
+                }
+            }
+        }
+        public object ExecuteProcedureScalar(string procedure)
+        {
+            using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                using (MySqlCommand sqlCommand = new MySqlCommand(procedure, sqlConnection))
+                {
+                    sqlCommand.CommandTimeout = timeout;
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    return sqlCommand.ExecuteScalar();
+                }
+            }
+        }
+        public object ExecuteProcedureScalar(string procedure, Dictionary<string, string> parameter)
+        {
+            using (MySqlConnection sqlConnection = new MySqlConnection(connectionString))
+            {
+                sqlConnection.Open();
+                using (MySqlCommand sqlCommand = new MySqlCommand(procedure, sqlConnection))
+                {
+                    foreach (var p in parameter)
+                        if (string.IsNullOrEmpty(p.Value))
+                            sqlCommand.Parameters.Add(new MySqlParameter(p.Key, DBNull.Value));
+                        else
+                            sqlCommand.Parameters.Add(new MySqlParameter(p.Key, p.Value));
+
+                    sqlCommand.CommandTimeout = timeout;
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    return sqlCommand.ExecuteScalar();
                 }
             }
         }

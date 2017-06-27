@@ -11,7 +11,7 @@ namespace Dal
     {
         T Get(int id);
         List<T> GetAll();   
-        void Insert(T entity);
+        T Insert(T entity);
         void Update(T entity);
         void Delete(int id);
     }

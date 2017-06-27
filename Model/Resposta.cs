@@ -3,8 +3,16 @@ namespace Model
 {
     public class Resposta : Questao
     {
+
+        #region Campos
+
         private int idResposta;
-        private Alternativa alternativaEscolhida;
+        private int idAlternativa;
+        private int idAvaliador;
+
+        #endregion
+
+        #region Propriedades
 
         public int IdResposta
         {
@@ -19,22 +27,41 @@ namespace Model
             }
         }
 
-        public Alternativa AlternativaEscolhida
+        public int IdAlternativa
         {
             get
             {
-                return alternativaEscolhida;
+                return idAlternativa;
             }
 
             set
             {
-                alternativaEscolhida = value;
+                idAlternativa = value;
             }
         }
 
-        public Resposta()
+        public int IdAvaliador
         {
+            get
+            {
+                return idAvaliador;
+            }
 
+            set
+            {
+                idAvaliador = value;
+            }
         }
+
+        #endregion
+
+        #region Construtores
+
+        public Resposta(Questao questao): base(questao)
+        {
+        }
+
+        #endregion
+
     }
 }

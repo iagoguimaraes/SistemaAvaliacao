@@ -55,7 +55,7 @@ namespace Dal.Repository
             }
         }
 
-        public void Insert(Avaliacao entity)
+        public Avaliacao Insert(Avaliacao entity)
         {
             using (SqlHelper sql = new SqlHelper())
             {
@@ -63,7 +63,8 @@ namespace Dal.Repository
                 parameter.Add("idmod", entity.IdModelo.ToString());
                 parameter.Add("idavo", entity.Avaliado.IdAvaliado.ToString());
                 parameter.Add("descr", entity.Descricao);
-                sql.ExecuteNonProcedure("sp_ins_avaliacao", parameter);
+                entity.IdAvaliacao = Convert.ToInt32(sql.ExecuteProcedureScalar("sp_ins_avaliacao", parameter));
+                return entity;
             }
         }
 

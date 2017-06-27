@@ -56,13 +56,14 @@ namespace Dal.Repository
             }
         }
 
-        public void Insert(Avaliado entity)
+        public Avaliado Insert(Avaliado entity)
         {
             using (SqlHelper sql = new SqlHelper())
             {
                 Dictionary<string, string> parameter = new Dictionary<string, string>();
                 parameter.Add("nmavo", entity.Nome);
-                sql.ExecuteNonProcedure("sp_ins_avaliado",parameter);
+                entity.IdAvaliado = Convert.ToInt32(sql.ExecuteProcedureScalar("sp_ins_avaliado",parameter));
+                return entity;
             }
         }
 

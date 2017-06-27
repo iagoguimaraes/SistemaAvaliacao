@@ -1,5 +1,4 @@
-﻿using Dal.Factory;
-using Model;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,54 +7,39 @@ using System.Threading.Tasks;
 
 namespace Dal.Repository
 {
-    public class ModeloRepository : IRepository<Modelo>, IDisposable
+    public class RespostaRepository: IRepository<Resposta>, IDisposable
     {
-
-        #region Campos
-
-        ModeloFactory factory;
-
-        #endregion
-
-        #region Construtor
-        public ModeloRepository()
-        {
-            factory = new ModeloFactory();
-        }
-
-        #endregion
-
         #region Métodos
 
-        public void Delete(int id)
+        public Resposta Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Modelo Get(int id)
+        public List<Resposta> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Resposta Insert(Resposta entity)
         {
             using (SqlHelper sql = new SqlHelper())
             {
                 Dictionary<string, string> parameter = new Dictionary<string, string>();
-                parameter.Add("idmod", id.ToString());
-                return sql.ExecuteProcedureObject(factory, "sp_sel_modelo", parameter).First();
+                parameter.Add("idque", entity.IdQuestao.ToString());
+                parameter.Add("idalt", entity.IdAlternativa.ToString());
+                parameter.Add("idavr", entity.IdAvaliador.ToString());
+                entity.IdResposta = Convert.ToInt32(sql.ExecuteProcedureScalar("sp_ins_resposta", parameter));
+                return entity;
             }
         }
 
-        public List<Modelo> GetAll()
-        {
-            using (SqlHelper sql = new SqlHelper())
-            {
-                return sql.ExecuteProcedureObject(factory, "sp_sel_modelos");
-            }
-        }
-
-        public Modelo Insert(Modelo entity)
+        public void Update(Resposta entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Modelo entity)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -83,7 +67,7 @@ namespace Dal.Repository
             if (disposing)
             {
                 // Free any other managed objects here.
-                factory = null;
+                //factory = null;
             }
 
             // Free any unmanaged objects here.
@@ -91,12 +75,11 @@ namespace Dal.Repository
             disposed = true;
         }
 
-        ~ModeloRepository()
+        ~RespostaRepository()
         {
             Dispose(false);
         }
 
         #endregion
-
     }
 }

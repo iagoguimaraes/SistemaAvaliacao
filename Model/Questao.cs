@@ -23,6 +23,17 @@ namespace Model
         {
         }
 
+        public Questao(Questao questao)
+        {
+            this.idQuestao = questao.IdQuestao;
+            this.idModelo = questao.IdModelo;
+            this.temaQuestao = questao.TemaQuestao;
+            this.abrangenciaQuestao = questao.AbrangenciaQuestao;
+            this.categoriaQuestao = questao.CategoriaQuestao;
+            this.alternativas = questao.Alternativas;
+            this.descricao = questao.Descricao;
+        }
+
         #endregion
 
         #region Propriedades
@@ -46,7 +57,7 @@ namespace Model
             }
             set
             {
-                idQuestao = value;
+                idModelo = value;
             }
         }
         public Tema TemaQuestao

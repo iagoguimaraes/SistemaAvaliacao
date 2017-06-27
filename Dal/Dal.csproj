@@ -78,7 +78,9 @@
     <Compile Include="Repository\AvaliadoRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AvaliadorRepository.cs" />
     <Compile Include="Repository\ModeloRepository.cs" />
+    <Compile Include="Repository\RespostaRepository.cs" />
     <Compile Include="SqlHelper.cs" />
   </ItemGroup>
   <ItemGroup>

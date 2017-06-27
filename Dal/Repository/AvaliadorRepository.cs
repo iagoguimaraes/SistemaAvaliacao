@@ -1,5 +1,4 @@
-﻿using Dal.Factory;
-using Model;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,54 +7,41 @@ using System.Threading.Tasks;
 
 namespace Dal.Repository
 {
-    public class ModeloRepository : IRepository<Modelo>, IDisposable
+    public class AvaliadorRepository: IRepository<Avaliador>, IDisposable
     {
-
-        #region Campos
-
-        ModeloFactory factory;
-
-        #endregion
-
-        #region Construtor
-        public ModeloRepository()
-        {
-            factory = new ModeloFactory();
-        }
-
-        #endregion
 
         #region Métodos
 
-        public void Delete(int id)
+        public Avaliador Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Modelo Get(int id)
+        public List<Avaliador> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Avaliador Insert(Avaliador entity)
         {
             using (SqlHelper sql = new SqlHelper())
             {
                 Dictionary<string, string> parameter = new Dictionary<string, string>();
-                parameter.Add("idmod", id.ToString());
-                return sql.ExecuteProcedureObject(factory, "sp_sel_modelo", parameter).First();
+                parameter.Add("ipusr", entity.Ip);
+                parameter.Add("dtini", entity.Dtini.ToString("yyyy-MM-dd HH:mm:ss"));
+                parameter.Add("dtfim", entity.Dtfim.ToString("yyyy-MM-dd HH:mm:ss"));
+                parameter.Add("idava", entity.IdAvaliacao.ToString());
+                entity.IdAvaliador = Convert.ToInt32(sql.ExecuteProcedureScalar("sp_ins_avaliador", parameter));
+                return entity;
             }
         }
 
-        public List<Modelo> GetAll()
-        {
-            using (SqlHelper sql = new SqlHelper())
-            {
-                return sql.ExecuteProcedureObject(factory, "sp_sel_modelos");
-            }
-        }
-
-        public Modelo Insert(Modelo entity)
+        public void Update(Avaliador entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Modelo entity)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -83,15 +69,15 @@ namespace Dal.Repository
             if (disposing)
             {
                 // Free any other managed objects here.
-                factory = null;
+                //factory = null;
             }
 
             // Free any unmanaged objects here.
             //
             disposed = true;
         }
-
-        ~ModeloRepository()
+     
+        ~AvaliadorRepository()
         {
             Dispose(false);
         }
