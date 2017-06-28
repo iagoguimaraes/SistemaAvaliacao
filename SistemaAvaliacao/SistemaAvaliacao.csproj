@@ -95,6 +95,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -107,10 +108,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pages\FrmAvaliacao.aspx" />
     <Content Include="Teste.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\FrmAvaliacao.aspx.cs">
+      <DependentUpon>FrmAvaliacao.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\FrmAvaliacao.aspx.designer.cs">
+      <DependentUpon>FrmAvaliacao.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Teste.aspx.cs">
       <DependentUpon>Teste.aspx</DependentUpon>
