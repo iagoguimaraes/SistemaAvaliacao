@@ -44,7 +44,7 @@ namespace Model
             }
             set
             {
-                idAlternativa = value;
+                idQuestao = value;
             }
         }
 

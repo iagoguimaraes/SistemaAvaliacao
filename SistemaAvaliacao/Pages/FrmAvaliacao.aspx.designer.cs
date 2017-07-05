@@ -13,6 +13,15 @@ namespace SistemaAvaliacao.Pages {
     public partial class FrmAvaliacao {
         
         /// <summary>
+        /// lb_titulo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb_titulo;
+        
+        /// <summary>
         /// form_avaliacao control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace SistemaAvaliacao.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form_avaliacao;
+        
+        /// <summary>
+        /// bt_finalizar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button bt_finalizar;
     }
 }

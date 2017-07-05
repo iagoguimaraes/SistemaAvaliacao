@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\FrmAvaliacao.aspx" />
+    <Content Include="Styles\FrmAvaliacao.css" />
     <Content Include="Teste.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
